@@ -7,7 +7,8 @@ from app import db
 class WorldCup2018Tweets(db.Model):
 
     __tablename__ = 'world_cup_2018_tweets'
-    ID = db.Column(db.String(255), nullable=False)
+    id = db.Column(db.Integer, primary_key=True, nullable=False)
+    tweet_id = db.Column(db.String(255), db.ForeignKey('Top100Tweets.tweet_id'), nullable=False)
     Name = db.Column(db.String(255), nullable=False)
     Orig_tweet = db.Column(db.String(4096), nullable=False)
     RTs = db.Column(db.String(255), nullable=True)
@@ -15,7 +16,8 @@ class WorldCup2018Tweets(db.Model):
     Followers = db.Column(db.String(255), nullable=True)
     Friends = db.Column(db.String(255), nullable=True)
 
-    def __int__(self, ID=None, Name=None, Orig_tweet=None, RTs=None, Likes=None, Followers=None, Friends=None):
+
+    def __int__(self, tweet_id=None, Name=None, Orig_tweet=None, RTs=None, Likes=None, Followers=None, Friends=None):
         self.tweet_id = ID
         self.name = Name
         self.orig_tweet = Orig_tweet
