@@ -3,6 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 import pymysql
 from flask_cors import CORS
 
+
 pymysql.install_as_MySQLdb()
 app = Flask(__name__)
 # 数据库连接配置
@@ -11,6 +12,9 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['SQLALCHEMY_ECHO'] = True
 db = SQLAlchemy(app)
 CORS(app)
+
+import models
+import controller
 
 
 @app.route('/')
