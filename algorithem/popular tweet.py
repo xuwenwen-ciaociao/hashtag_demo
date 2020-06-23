@@ -18,8 +18,7 @@ cur = db.cursor(cursor=pymysql.cursors.DictCursor)
 cur.execute('SELECT tweet_id, hashtag FROM russia_troll_tweets '
             'UNION ALL '
             'SELECT tweet_id, hashtag FROM world_cup_2018_tweets '
-            'UNION ALL '
-            'SELECT tweet_id, hashtag FROM twitter_friends')
+           )
 hashtags_for_tables = cur.fetchall()
 
 
@@ -65,7 +64,9 @@ for items in hashtags_for_tables:
         hashtags_removesymbol2 = re.sub(r'[#]', "", hashtags_removesymbol)
         hashtags_removesymbol4 = re.sub(r'[\"]', "", hashtags_removesymbol2)
         hashtag_cleaned = hashtags_removesymbol4.split(',')
-        hashtag_dict[items['tweet_id']] = hashtag_cleaned
+        hashtag_cleaned_remove_duplication = list(set(hashtag_cleaned))
+        hashtag_dict[items['tweet_id']] = hashtag_cleaned_remove_duplication
+
 
 for key, value in hashtag_dict.items():
     hashtag_list.extend(value)
@@ -99,8 +100,8 @@ list_tweet_id = [key for key, value in dict_tweet_with_score.items()]
 set1_tweetid = set(list_tweet_id)
 
 for key, value in top1_hashtagkeyword.items():
-    set_tweet_id__for_one_hashtag = set(value)
-    set_tweet_id = set1_tweetid & set_tweet_id__for_one_hashtag
+    set_tweet_id_for_one_hashtag = set(value)
+    set_tweet_id = set1_tweetid & set_tweet_id_for_one_hashtag
     popular_hashtag_tweet[key] = {key: value for key, value in dict_tweet_with_score.items() if key in set_tweet_id}
     # print(popular_hashtag_tweet)
 
