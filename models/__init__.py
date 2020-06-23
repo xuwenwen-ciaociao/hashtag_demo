@@ -2,4 +2,4 @@ import models.top100_tweets
 import models.world_cup_2018_tweet
 import models.hashtag_count
 import models.russia_troll_tweets
-# import models.russia_troll_users
+import models.hashtag_count
