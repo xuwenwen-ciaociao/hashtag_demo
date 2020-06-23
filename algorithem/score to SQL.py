@@ -2,8 +2,8 @@ import pymysql
 import json
 dict_temp = dict()
 
-db = pymysql.connect(host='localhost', port=3306, user='root', password='123456', db='hashtag_demo')
-cursor = db.cursor()
+
+
 with open('E:/hashtag_clean_data/hashtag_count2.txt', 'r',encoding="utf-8") as f:
     json = f.readlines()
     for line in json:
