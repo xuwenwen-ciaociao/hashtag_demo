@@ -1,10 +1,5 @@
-import numpy as np
-import pandas as pd
-import csv
-import os
 import pymysql
 import operator
-import json
 
 import re
 import datetime
@@ -37,12 +32,14 @@ for items in hashtags_for_tables:
     if hashtags is None:
         continue
     else:
-        hashtags_lower = hashtags.lower()
-        hashtags_removesymbol = re.sub(r'[\[\]]', "", hashtags_lower)
+        # hashtags_lower = hashtags.lower()
+        hashtags_removesymbol = re.sub(r'[\[\]]', "", hashtags)
         hashtags_removesymbol2 = re.sub(r'[#]', "", hashtags_removesymbol)
         hashtags_removesymbol4 = re.sub(r'[\"]', "", hashtags_removesymbol2)
         hashtag_cleaned = hashtags_removesymbol4.split(',')
-        hashtag_dict[items['tweet_id']] = hashtag_cleaned
+        hashtag_cleaned_remove_duplication = list(set(hashtag_cleaned))
+        hashtag_dict[items['tweet_id']] = hashtag_cleaned_remove_duplication
+
 
 for key, value in hashtag_dict.items():
     hashtag_list.extend(value)
@@ -56,6 +53,7 @@ for word in hashtag_list:
     else:
         hashtag_frequency_dict[key] = hashtag_frequency_dict[key] + 1
 swd = sorted(hashtag_frequency_dict.items(), key=operator.itemgetter(1), reverse=True)
+
 print(swd)
 
 end = datetime.datetime.now()
