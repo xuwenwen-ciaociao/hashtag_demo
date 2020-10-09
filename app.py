@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, jsonify
 from flask_sqlalchemy import SQLAlchemy
 import pymysql
 from flask_cors import CORS
@@ -13,20 +13,18 @@ app.config['SQLALCHEMY_ECHO'] = True
 db = SQLAlchemy(app)
 CORS(app)
 
-import models
+from models.hashtag_count import HashTagCount
 import controller
 
 
 @app.route('/')
-def hello_world():
-    return 'bbbb'
+def home_page():
+    return 'bbb'
 
 
 @app.before_first_request
 def init_db():
-    db.create_all()
-
-
+    return
 
 if __name__ == '__main__':
     CORS(app, supports_credentials=True)
